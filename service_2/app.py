@@ -1,6 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import logging
 
 app = Flask(__name__)
+
+
+logging.basicConfig(level=logging.INFO)
+
+@app.before_request
+def log_request_info():
+    app.logger.info(f"{request.method} {request.path} from {request.remote_addr}")
 
 @app.route("/")
 def index():
