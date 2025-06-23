@@ -4,20 +4,28 @@ services:
   service1:
     build: ./service_1
     container_name: golang-service
+    expose:
+      - "8001"
+    networks:
+      - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8001/ping"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
 
   service2:
     build: ./service_2
     container_name: python-service
+    expose:
+      - "8002"
+    networks:
+      - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8002/ping"]
       interval: 30s
       timeout: 10s
-      retries: 5
+      retries: 3
 
   nginx:
     build: ./nginx
@@ -27,3 +35,9 @@ services:
     depends_on:
       - service1
       - service2
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
