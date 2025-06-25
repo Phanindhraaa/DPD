@@ -27,7 +27,7 @@ This is a DevOps project demonstrating how to containerize and orchestrate a two
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repo
+### 1. Clone the Repo and run the docker-compose
 
 ```bash
 git clone https://github.com/Phanindhraaa/DPD.git
